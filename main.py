@@ -71,10 +71,11 @@ def adduser():
         cemail = request.form.get('email')
         cbalance = request.form.get('balance')
         entry = Customers( name=cname, email=cemail, balance=cbalance)
-        db.session.add(entry)
-        db.session.commit()
-        res = Customers.query.all()
-        return render_template('user.html', result=res)
+        if(cname!= "" or cemail!= "" or cbalance!=""):
+            db.session.add(entry)
+            db.session.commit()
+            res = Customers.query.all()
+            return render_template('user.html', result=res)
     return render_template('adduser.html')
 
 
